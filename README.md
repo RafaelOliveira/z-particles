@@ -1,5 +1,7 @@
 # Particle system for Kha
 
+![Screenshot](https://raw.githubusercontent.com/RafaelOliveira/z-particles/master/screenshot.jpg)
+
 This is a port of [zame-haxe-particles](https://github.com/restorer/zame-haxe-particles) for Kha. See the original repo for more information.  
 ## Installation
 Add as a git submodule in your project inside the Libraries folder:
