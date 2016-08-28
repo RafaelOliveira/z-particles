@@ -2,7 +2,12 @@
 
 ![Screenshot](https://raw.githubusercontent.com/RafaelOliveira/z-particles/master/screenshot.jpg)
 
-This is a port of [zame-haxe-particles](https://github.com/restorer/zame-haxe-particles) for Kha. See the original repo for more information.  
+This is a port of [zame-haxe-particles](https://github.com/restorer/zame-haxe-particles) for Kha. See the original repo for more information.
+
+Online demos:
+* [minimal](http://sudoestegames.com/play/z-particles/minimal)
+* [showcase](http://sudoestegames.com/play/z-particles/showcase)
+
 ## Installation
 Add as a git submodule in your project inside the Libraries folder:
 ```
@@ -36,8 +41,6 @@ function render(framebuffer:Framebuffer):Void {
 ```
 
 You can see some examples in [z-particles-samples](https://github.com/RafaelOliveira/z-particles-samples).
-* [minimal](http://sudoestegames.com/play/z-particles/minimal)
-* [showcase](http://sudoestegames.com/play/z-particles/showcase)
 
 ## TODO
 * Switch ParticleColor and ParticleVector to kha.Color and kha.math.Vector2
