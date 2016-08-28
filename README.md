@@ -13,3 +13,6 @@ project.addLibrary('z-particles');
 ```
 ## How to use
 You can see some examples in [z-particles-samples](https://github.com/RafaelOliveira/z-particles-samples).
+## TODO
+* Particle rotation
+* Embedded textures
