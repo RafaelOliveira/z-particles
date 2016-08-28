@@ -141,7 +141,7 @@ class ParticleSystem {
 	}	
 	
 	// TODO: change function to return Void
-    public function __update() : Bool {
+    public function update() : Bool {
         var currentTime = Scheduler.time();
 
         if (prevTime < 0.0) {

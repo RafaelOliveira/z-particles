@@ -12,4 +12,4 @@ Then add in khafile.js:
 project.addLibrary('z-particles');
 ```
 ## How to use
-You can some examples in [z-particles-samples](https://github.com/RafaelOliveira/z-particles-samples).
+You can see some examples in [z-particles-samples](https://github.com/RafaelOliveira/z-particles-samples).
