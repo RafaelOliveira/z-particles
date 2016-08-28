@@ -13,6 +13,10 @@ project.addLibrary('z-particles');
 ```
 ## How to use
 You can see some examples in [z-particles-samples](https://github.com/RafaelOliveira/z-particles-samples).
+* [minimal](http://sudoestegames.com/play/z-particles/minimal)
+* [showcase](http://sudoestegames.com/play/z-particles/showcase)
+
 ## TODO
+* Switch ParticleColor and ParticleVector to kha.Color and kha.math.Vector2
 * Particle rotation
 * Embedded textures
