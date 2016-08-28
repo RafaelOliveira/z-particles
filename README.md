@@ -13,13 +13,13 @@ project.addLibrary('z-particles');
 ```
 ## How to use
 Create a instance of ParticleSystem using ParticleLoader.load(). This function will detect the type of the config file automatically. Or use one of the Loaders inside particles/loaders (The specific loaders use less paramaters).  
-```
+```haxe
 particleSystem = ParticleLoader.load(Assets.blobs.fire_plist, Assets.blobs.fire_plistName, Assets.images.fire);	
 // or
 particleSystem = PlistParticleLoader.load(Assets.blobs.fire_plist, Assets.images.fire);	
 ```
 Use particleSystem.emit() to start the system in a position, update with particleSystem.update() and render with particleSystem.render().
-```
+```haxe
 particleSystem.emit(200, 200);
 
 function update():Void {
