@@ -67,6 +67,8 @@ class ParticleSystem {
     public var particleScaleSize : Float;
     public var yCoordMultiplier : Float;
     public var emissionFreq : Float;
+    public var headToVelocity = false;
+
 
     private var prevTime : Float;
     private var emitCounter : Float;

@@ -55,6 +55,7 @@ class JsonParticleLoader {
         ps.blendFuncDestination = ParticleLoader.getBlendingFactor(map["blendFuncDestination"].asInt());
         ps.texture = texture;
         ps.yCoordMultiplier = (map["yCoordFlipped"].asInt() == 1 ? -1.0 : 1.0);
+        ps.headToVelocity = map["headToVelocity"].asBool();
 		
 		ps.__initialize();
 

@@ -6,6 +6,7 @@ import particles.util.ParticleVector;
 class Particle {
     public var startPos : ParticleVector;
     public var position : ParticleVector;
+    public var prevPosition : ParticleVector;
     public var direction : ParticleVector;
     public var color : ParticleColor;
     public var colorDelta : ParticleColor;
@@ -27,6 +28,7 @@ class Particle {
         startPos = { x: 0.0, y: 0.0 };
         color = { r: 0.0, g: 0.0, b: 0.0, a: 0.0 };
         colorDelta = { r: 0.0, g: 0.0, b: 0.0, a: 0.0 };
+        prevPosition = { x: 0.0, y: 0.0 };
     }
 
     public function update(ps : ParticleSystem, dt : Float) : Bool {
@@ -35,6 +37,9 @@ class Particle {
         if (timeToLive <= 0.0) {
             return false;
         }
+
+        prevPosition.x = position.x;
+        prevPosition.y = position.y;
 
         if (ps.emitterType == ParticleSystem.EMITTER_TYPE_RADIAL) {
             angle += angleDelta * dt;
@@ -81,7 +86,17 @@ class Particle {
         particleSize += particleSizeDelta * dt;
         particleSize = Math.max(0, particleSize);
 
-        rotation += rotationDelta * dt;
+        if(ps.headToVelocity){
+            var vel = {x :position.x - prevPosition.x, y : position.y - prevPosition.y};
+            if(vel.x != 0 && vel.y != 0){
+                rotation = Math.atan2(vel.y, vel.x);
+            }else{
+               rotation = Math.atan2(direction.y, direction.x);
+            }
+        }else{
+            rotation += rotationDelta * dt;
+        }
+
 
         return true;
     }
