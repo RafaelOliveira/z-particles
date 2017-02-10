@@ -295,13 +295,13 @@ class ParticleSystem {
 		{
 			particle = __particleList[i];
 			scale = particle.particleSize / texture.width * particleScaleSize;
-			//rotation = particle.rotation * 180.0 / Math.PI + 90.0;
 			g.color = Color.fromFloats(particle.color.r, particle.color.g, particle.color.b, particle.color.a);
-			
+                        g.pushRotation(particle.rotation, particle.position.x, particle.position.y);
 			g.drawScaledSubImage(texture, 0, 0, texture.width, texture.height,
 							 particle.position.x * particleScaleX - ((texture.width * scale) * 0.5),
 							 particle.position.y * particleScaleY - ((texture.height * scale) * 0.5),
 							 texture.width * scale, texture.height * scale);
+                        g.popTransformation();
 		}
 		
 		g.pipeline = currentShaderPipeline;
