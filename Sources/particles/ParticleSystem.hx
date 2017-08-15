@@ -144,6 +144,7 @@ class ParticleSystem {
 			shaderPipeline.compile();
 		}catch(e:Dynamic){
 			failedToCreatePipeline = true;
+			shaderPipeline = null;
 		}
 		
 	}	
