@@ -77,7 +77,8 @@ class ParticleSystem {
     public var __particleList : Array<Particle>;
     public var __particleCount : Int;
 	
-	var shaderPipeline:PipelineState;
+	static var shaderPipeline:PipelineState; //shared among every particle system
+	static var failedToCreatePipeline : Bool = false;
 	var currentShaderPipeline:PipelineState;
 	
 	// temp variables used in the render
@@ -120,26 +121,32 @@ class ParticleSystem {
     }
 	
 	function initShaders():Void	{
-		if (shaderPipeline != null) 
+		if (failedToCreatePipeline || shaderPipeline != null) 
 			return;
 			
-		shaderPipeline = new PipelineState();
-		shaderPipeline.fragmentShader = Shaders.particles_frag;
-		shaderPipeline.vertexShader = Shaders.painter_image_vert;
+		try{
+			shaderPipeline = new PipelineState();
+			shaderPipeline.fragmentShader = Shaders.particles_frag;
+			shaderPipeline.vertexShader = Shaders.painter_image_vert;
+
+			var structure = new VertexStructure();
+			structure.add("vertexPosition", VertexData.Float3);
+			structure.add("texPosition", VertexData.Float2);
+			structure.add("vertexColor", VertexData.Float4);
+			shaderPipeline.inputLayout = [structure];
+
+			shaderPipeline.blendSource = blendFuncSource;
+			shaderPipeline.blendDestination = blendFuncDestination;
+
+			shaderPipeline.alphaBlendSource = BlendingFactor.Undefined;
+			shaderPipeline.alphaBlendDestination = BlendingFactor.Undefined;
+
+			shaderPipeline.compile();
+		}catch(e:Dynamic){
+			failedToCreatePipeline = true;
+			shaderPipeline = null;
+		}
 		
-		var structure = new VertexStructure();
-		structure.add("vertexPosition", VertexData.Float3);
-		structure.add("texPosition", VertexData.Float2);
-		structure.add("vertexColor", VertexData.Float4);
-		shaderPipeline.inputLayout = [structure];
-		
-		shaderPipeline.blendSource = blendFuncSource;
-		shaderPipeline.blendDestination = blendFuncDestination;
-		
-		shaderPipeline.alphaBlendSource = BlendingFactor.Undefined;
-		shaderPipeline.alphaBlendDestination = BlendingFactor.Undefined;
-		
-		shaderPipeline.compile();
 	}	
 	
 	// TODO: change function to return Void
@@ -290,22 +297,27 @@ class ParticleSystem {
 	
 	public function render(g:Graphics):Void 
 	{		
-		currentShaderPipeline = g.pipeline;
-		g.pipeline = shaderPipeline;
+		if(!failedToCreatePipeline){
+			currentShaderPipeline = g.pipeline;
+			g.pipeline = shaderPipeline;
+		}
+		
 			
 		for (i in 0 ... __particleCount)
 		{
 			particle = __particleList[i];
 			scale = particle.particleSize / texture.width * particleScaleSize;
+			//rotation = particle.rotation * 180.0 / Math.PI + 90.0;
 			g.color = Color.fromFloats(particle.color.r, particle.color.g, particle.color.b, particle.color.a);
-                        g.pushRotation(particle.rotation, particle.position.x, particle.position.y);
+			
 			g.drawScaledSubImage(texture, 0, 0, texture.width, texture.height,
 							 particle.position.x * particleScaleX - ((texture.width * scale) * 0.5),
 							 particle.position.y * particleScaleY - ((texture.height * scale) * 0.5),
 							 texture.width * scale, texture.height * scale);
-                        g.popTransformation();
 		}
 		
-		g.pipeline = currentShaderPipeline;
+		if(!failedToCreatePipeline){
+			g.pipeline = currentShaderPipeline;
+		}
 	}
 }
